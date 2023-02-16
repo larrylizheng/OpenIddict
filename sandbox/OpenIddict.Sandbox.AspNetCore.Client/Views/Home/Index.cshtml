@@ -1,0 +1,74 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication;
+@using OpenIddict.Client.AspNetCore;
+@model string
+
+<div class="jumbotron">
+    @if (User?.Identity is { IsAuthenticated: true })
+    {
+        <h1>Welcome, @User.Identity.Name</h1>
+
+        <p>
+            @foreach (var claim in Context.User.Claims)
+            {
+                <div>@claim.Type: <b>@claim.Value</b></div>
+            }
+        </p>
+
+        if (!string.IsNullOrEmpty(Model))
+        {
+            <h3>Payload returned by the controller: @Model</h3>
+        }
+
+        if (User.FindFirst(ClaimTypes.NameIdentifier)?.Issuer is "https://oidc-test-ly.auth.ap-southeast-2.amazoncognito.com/")
+        {
+            <form asp-action="GetMessage" asp-controller="Home" method="post">
+                <button class="btn btn-lg btn-warning" type="submit">Query the resource controller</button>
+            </form>
+        }
+
+        if (!string.IsNullOrEmpty(await Context.GetTokenAsync(OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken)))
+        {
+            <form asp-action="RefreshToken" asp-controller="Home" method="post">
+                <button class="btn btn-lg btn-warning" type="submit">Refresh the access token</button>
+            </form>
+        }
+
+        <form asp-action="Logout" asp-controller="Authentication" method="post">
+            <button class="btn btn-lg btn-danger" type="submit">Sign out</button>
+        </form>
+    }
+
+    else
+    {
+        <h1>Welcome, anonymous</h1>
+
+        <form asp-action="Login" asp-controller="Authentication" method="post">
+            <input type="hidden" name="returnUrl" value="@(Context.Request.PathBase + Context.Request.Path + Context.Request.QueryString)" />
+
+            <button class="btn btn-lg btn-success" type="submit" name="provider" value="Local">
+                Sign in using the local OIDC server
+            </button>
+
+            <button class="btn btn-lg btn-success" type="submit" name="provider" value="Local+GitHub">
+                Sign in using the local OIDC server (using GitHub delegation)
+            </button>
+
+            <button class="btn btn-lg btn-success" type="submit" name="provider" value="GitHub">
+                Sign in using GitHub
+            </button>
+
+            <button class="btn btn-lg btn-success" type="submit" name="provider" value="Google">
+                Sign in using Google
+            </button>
+
+            <button class="btn btn-lg btn-success" type="submit" name="provider" value="Reddit">
+                Sign in using Reddit
+            </button>
+
+            <button class="btn btn-lg btn-success" type="submit" name="provider" value="Twitter">
+                Sign in using Twitter
+            </button>
+        </form>
+    }
+</div>

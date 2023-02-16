@@ -1,0 +1,461 @@
+﻿<Providers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="OpenIddictClientWebIntegrationProviders.xsd">
+  <!--
+    Note: for more information on how to add a new web provider integration, visit
+    https://documentation.openiddict.com/guides/contributing-a-new-web-provider.html.
+  -->
+
+  <!--
+    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    █ ▄▄▀██ ▄▄▀████ ▄▄▄██ ▄▄▄██ ▄▄▀██ ▄▄▄██ ▄▄▀█ ▄▄▀█▄▄ ▄▄█▄ ▄██ ▄▄▄ ██ ▀██ ████ ▄▄▄ ██ ▄▄▄██ ▄▄▀██ ███ █▄ ▄██ ▄▄▀██ ▄▄▄██ ▄▄▄ ██
+    █ ▀▀ ██ ██ ████ ▄▄███ ▄▄▄██ ██ ██ ▄▄▄██ ▀▀▄█ ▀▀ ███ ████ ███ ███ ██ █ █ ████▄▄▄▀▀██ ▄▄▄██ ▀▀▄███ █ ███ ███ █████ ▄▄▄██▄▄▄▀▀██
+    █ ██ ██ ▀▀ ████ █████ ▀▀▀██ ▀▀ ██ ▀▀▀██ ██ █ ██ ███ ███▀ ▀██ ▀▀▀ ██ ██▄ ████ ▀▀▀ ██ ▀▀▀██ ██ ███▄▀▄██▀ ▀██ ▀▀▄██ ▀▀▀██ ▀▀▀ ██
+    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="ActiveDirectoryFederationServices" DisplayName="Microsoft Active Directory Federation Services"
+            Documentation="https://learn.microsoft.com/en-us/windows-server/identity/ad-fs/overview/ad-fs-openid-connect-oauth-flows-scenarios">
+    <!--
+      Note: Active Directory Federation Services (ADFS) is a self-hosted identity provider that
+      doesn't have a generic issuer URI. As such, the complete URI must always be set in the options.
+    -->
+
+    <Environment Issuer="{issuer}" />
+
+    <Setting PropertyName="Issuer" ParameterName="issuer" Type="Uri" Required="true"
+             Description="The URI used to access the ADFS instance, including the virtual directory (e.g https://contoso.com/adfs)" />
+  </Provider>
+
+  <!--
+                                                  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                                  █ ▄▄▀██ ▄▄ ██ ▄▄ ██ █████ ▄▄▄██
+                                                  █ ▀▀ ██ ▀▀ ██ ▀▀ ██ █████ ▄▄▄██
+                                                  █ ██ ██ █████ █████ ▀▀ ██ ▀▀▀██
+                                                  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Apple" DisplayName="Sign in with Apple"
+            Documentation="https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api">
+    <Environment Issuer="https://appleid.apple.com/" />
+
+    <Setting PropertyName="SigningKey" ParameterName="key" Type="SigningKey" Required="true"
+             Description="The Elliptic Curve Digital Signature Algorithm (ECDSA) signing key associated with the developer account">
+      <SigningAlgorithm Value="ES256" />
+    </Setting>
+
+    <Setting PropertyName="TeamId" ParameterName="identifier" Type="String" Required="true"
+             Description="The team ID associated with the developer account" />
+  </Provider>
+
+  <!--
+                        ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                        █ ▄▄▀██ ▄▀▄ █ ▄▄▀██ ▄▄▄ ██ ▄▄▄ ██ ▀██ ████ ▄▄▀██ ▄▄▄ ██ ▄▄ ██ ▀██ █▄ ▄█▄▄ ▄▄██ ▄▄▄ ██
+                        █ ▀▀ ██ █ █ █ ▀▀ ██▀▀▀▄▄██ ███ ██ █ █ ████ █████ ███ ██ █▀▀██ █ █ ██ ████ ████ ███ ██
+                        █ ██ ██ ███ █ ██ ██ ▀▀▀ ██ ▀▀▀ ██ ██▄ ████ ▀▀▄██ ▀▀▀ ██ ▀▀▄██ ██▄ █▀ ▀███ ████ ▀▀▀ ██
+                        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Cognito" DisplayName="Amazon Cognito"
+            Documentation="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-reference.html">
+    <Environment Issuer="https://cognito-idp.{region}.amazonaws.com/{userPoolId}" />
+
+    <Setting PropertyName="Region" ParameterName="region" Type="String" Required="true"
+             Description="The AWS region" />
+
+    <Setting PropertyName="UserPoolId" ParameterName="identifier" Type="String" Required="true"
+             Description="The User Pool ID" />
+  </Provider>
+
+  <!--
+                                              ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                              ██ ▄▄▀██ ▄▄▄██ ▄▄▄██ ▄▄▄ ██ ▄▄▄██ ▄▄▀██
+                                              ██ ██ ██ ▄▄▄██ ▄▄▄██▀▀▀▄▄██ ▄▄▄██ ▀▀▄██
+                                              ██ ▀▀ ██ ▀▀▀██ ▀▀▀██ ▀▀▀ ██ ▀▀▀██ ██ ██
+                                              ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+ 
+  <Provider Name="Deezer" Documentation="https://developers.deezer.com/api/oauth">
+    <!--
+      Note: the Deezer documentation describes an implementation with important deviations from the OAuth 2.0 standard,
+      including the use of many non-standard and custom parameters. Luckily, while the documentation hasn't been fixed
+      to reflect it, the Deezer implementation has been updated at some point to also support the standard parameters.
+      As such, the Deezer integration tries to use the standard parameters and only use the non-standard equivalents
+      when no other option exists (e.g an "output" query string parameter must be sent to get JSON token responses).
+    -->
+    
+    <Environment Issuer="https://deezer.com/">
+      <Configuration AuthorizationEndpoint="https://connect.deezer.com/oauth/auth.php"
+                     TokenEndpoint="https://connect.deezer.com/oauth/access_token.php"
+                     UserinfoEndpoint="https://api.deezer.com/user/me" />
+    </Environment>
+  </Provider>
+
+  <!--
+                                              ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                              ██ ▄▄ █▄ ▄█▄▄ ▄▄██ ██ ██ ██ ██ ▄▄▀██
+                                              ██ █▀▀██ ████ ████ ▄▄ ██ ██ ██ ▄▄▀██
+                                              ██ ▀▀▄█▀ ▀███ ████ ██ ██▄▀▀▄██ ▀▀ ██
+                                              ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="GitHub" Documentation="https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps">
+    <Environment Issuer="https://github.com/">
+      <Configuration AuthorizationEndpoint="https://github.com/login/oauth/authorize"
+                     TokenEndpoint="https://github.com/login/oauth/access_token"
+                     UserinfoEndpoint="https://api.github.com/user" />
+    </Environment>
+  </Provider>
+
+  <!--
+                                            ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                            ██ ▄▄ ██ ▄▄▄ ██ ▄▄▄ ██ ▄▄ ██ █████ ▄▄▄██
+                                            ██ █▀▀██ ███ ██ ███ ██ █▀▀██ █████ ▄▄▄██
+                                            ██ ▀▀▄██ ▀▀▀ ██ ▀▀▀ ██ ▀▀▄██ ▀▀ ██ ▀▀▀██
+                                            ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Google" Documentation="https://developers.google.com/identity/protocols/oauth2/openid-connect">
+    <Environment Issuer="https://accounts.google.com/" />
+
+    <Setting PropertyName="AccessType" ParameterName="type" Type="String" Required="false"
+             Description="The value used as the 'access_type' parameter (can be set to 'offline' to retrieve a refresh token)" />
+  </Provider>
+
+  <!--
+                                      ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                      ██ █▀▄██ ▄▄▄██ ███ ██ ▄▄▀██ █████ ▄▄▄ █ ▄▄▀██ █▀▄██
+                                      ██ ▄▀███ ▄▄▄██▄▀▀▀▄██ █████ █████ ███ █ ▀▀ ██ ▄▀███
+                                      ██ ██ ██ ▀▀▀████ ████ ▀▀▄██ ▀▀ ██ ▀▀▀ █ ██ ██ ██ ██
+                                      ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Keycloak" Documentation="https://www.keycloak.org/getting-started/getting-started-docker">
+    <!--
+      Note: Keycloak is a self-hosted-only identity provider that doesn't have a generic issuer URI.
+      As such, the complete URI must always be set in the options and include the realm, if applicable.
+    -->
+
+    <Environment Issuer="{issuer}" />
+
+    <Setting PropertyName="Issuer" ParameterName="issuer" Type="Uri" Required="true"
+             Description="The URI used to access the Keycloak identity provider (including the realm, if applicable)" />
+  </Provider>
+
+  <!--
+                                        ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                        ██ ████▄ ▄██ ▀██ ██ █▀▄██ ▄▄▄██ ▄▄▀█▄ ▄██ ▀██ ██
+                                        ██ █████ ███ █ █ ██ ▄▀███ ▄▄▄██ ██ ██ ███ █ █ ██
+                                        ██ ▀▀ █▀ ▀██ ██▄ ██ ██ ██ ▀▀▀██ ▀▀ █▀ ▀██ ██▄ ██
+                                        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="LinkedIn" Documentation="https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin">
+    <Environment Issuer="https://www.linkedin.com/">
+      <Configuration AuthorizationEndpoint="https://www.linkedin.com/oauth/v2/authorization"
+                     TokenEndpoint="https://www.linkedin.com/oauth/v2/accessToken"
+                     UserinfoEndpoint="https://api.linkedin.com/v2/me">
+        <GrantType Value="authorization_code" />
+        <GrantType Value="refresh_token" />
+      </Configuration>
+
+      <!--
+        Note: LinkedIn requires sending at least one scope element. If no scope is set, an error is
+        returned to the caller. To prevent that, the "r_liteprofile" scope (that is required by the
+        userinfo endpoint) is always added even if another scope was explicitly registered by the user.
+      -->
+
+      <Scope Name="r_liteprofile" Default="true" Required="true" />
+    </Environment>
+
+    <Setting PropertyName="Fields" ParameterName="fields" Collection="true" Type="String"
+             Description="The fields that should be retrieved from the userinfo endpoint (by default, all known basic fields are requested)">
+      <Item Value="firstName"                                     Default="true" Required="false" />
+      <Item Value="id"                                            Default="true" Required="false" />
+      <Item Value="lastName"                                      Default="true" Required="false" />
+      <Item Value="localizedFirstName"                            Default="true" Required="false" />
+      <Item Value="localizedLastName"                             Default="true" Required="false" />
+      <Item Value="profilePicture(displayImage~:playableStreams)" Default="true" Required="false" />
+    </Setting>
+  </Provider>
+
+  <!--
+              ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+              ██ ▄▀▄ █▄ ▄██ ▄▄▀██ ▄▄▀██ ▄▄▄ ██ ▄▄▄ ██ ▄▄▄ ██ ▄▄▄█▄▄ ▄▄███ ▄▄▀██ ▄▄▀██ ▄▄▀██ ▄▄▄ ██ ██ ██ ▀██ █▄▄ ▄▄██
+              ██ █ █ ██ ███ █████ ▀▀▄██ ███ ██▄▄▄▀▀██ ███ ██ ▄▄████ █████ ▀▀ ██ █████ █████ ███ ██ ██ ██ █ █ ███ ████
+              ██ ███ █▀ ▀██ ▀▀▄██ ██ ██ ▀▀▀ ██ ▀▀▀ ██ ▀▀▀ ██ ██████ █████ ██ ██ ▀▀▄██ ▀▀▄██ ▀▀▀ ██▄▀▀▄██ ██▄ ███ ████
+              ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Microsoft" DisplayName="Microsoft Account/Azure Active Directory"
+            Documentation="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc">
+    <!--
+      Note: Microsoft is a multitenant provider that relies on virtual paths to identify instances.
+      As such, the issuer includes a {tenant} placeholder that will be dynamically replaced
+      by OpenIddict at runtime by the tenant configured in the Microsoft Account settings.
+      If no tenant is explicitly configured, the "common" tenant will be automatically used.
+    -->
+
+    <Environment Issuer="https://login.microsoftonline.com/{tenant}/v2.0" />
+
+    <Setting PropertyName="Tenant" ParameterName="tenant" Type="String" Required="false" DefaultValue="common"
+             Description="The tenant used to identify the Azure AD instance (by default, the common tenant is used)" />
+  </Provider>
+
+  <!--
+                                      ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                      ██ ▄▀▄ █▄ ▄█▄▀█▀▄██ ▄▄▀██ █████ ▄▄▄ ██ ██ ██ ▄▄▀██
+                                      ██ █ █ ██ ████ ████ █████ █████ ███ ██ ██ ██ ██ ██
+                                      ██ ███ █▀ ▀█▀▄█▄▀██ ▀▀▄██ ▀▀ ██ ▀▀▀ ██▄▀▀▄██ ▀▀ ██
+                                      ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Mixcloud" Documentation="https://www.mixcloud.com/developers/#authorization">
+    <Environment Issuer="https://www.mixcloud.com/">
+      <Configuration AuthorizationEndpoint="https://www.mixcloud.com/oauth/authorize"
+                     TokenEndpoint="https://www.mixcloud.com/oauth/access_token"
+                     UserinfoEndpoint="https://api.mixcloud.com/me" />
+    </Environment>
+  </Provider>
+
+  <!--
+                                            ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                            ██ ▄▄ █ ▄▄▀██ ███ ██ ▄▄ █ ▄▄▀██ █████
+                                            ██ ▀▀ █ ▀▀ ██▄▀▀▀▄██ ▀▀ █ ▀▀ ██ █████
+                                            ██ ████ ██ ████ ████ ████ ██ ██ ▀▀ ██
+                                            ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="PayPal" Documentation="https://developer.paypal.com/docs/log-in-with-paypal/">
+    <!--
+      Note: PayPal offers a production and a sandbox environment, but the sandbox server metadata
+      document doesn't reflect the configuration used by the sandbox environment (e.g the production
+      endpoints are always returned and the issuer is shared by both environments). To work around that,
+      the issuer configured globally is the same for both environments but the returned configuration
+      is amended by a dedicated handler to use the correct endpoints when the sandbox mode is used.
+    -->
+
+    <Environment Name="Production" Issuer="https://www.paypal.com/" />
+    <Environment Name="Sandbox"    Issuer="https://www.paypal.com/" />
+  </Provider>
+
+  <!--
+              ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+              ██ ▄▄ ██ ▄▄▀██ ▄▄▄ ████ ▄▄▄ █ ▄▄▀██ ▀██ █▄▄ ▄▄██ ▄▄▄████ ▄▄▀██ ▄▄▄ ██ ▀██ ██ ▀██ ██ ▄▄▄██ ▄▄▀█▄▄ ▄▄██
+              ██ ▀▀ ██ ▀▀▄██ ███ ████▄▄▄▀▀█ ▀▀ ██ █ █ ███ ████ ▄▄▄████ █████ ███ ██ █ █ ██ █ █ ██ ▄▄▄██ ██████ ████
+              ██ █████ ██ ██ ▀▀▀ ████ ▀▀▀ █ ██ ██ ██▄ ███ ████ ▀▀▀████ ▀▀▄██ ▀▀▀ ██ ██▄ ██ ██▄ ██ ▀▀▀██ ▀▀▄███ ████
+              ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="ProSantéConnect" DisplayName="Pro Santé Connect"
+            Documentation="https://industriels.esante.gouv.fr/en/products-services/health-pro-authentication-pro-sante-connect">
+    <!--
+      Note: Pro Santé Connect requires sending the "scope_all" scope (which is currently the only supported value).
+    -->
+
+    <Environment Name="Production" Issuer="https://auth.esw.esante.gouv.fr/auth/realms/esante-wallet"
+                 ConfigurationEndpoint="https://auth.esw.esante.gouv.fr/auth/realms/esante-wallet/.well-known/wallet-openid-configuration">
+      <Scope Name="scope_all" Default="true" Required="true" />
+    </Environment>
+
+    <Environment Name="Sandbox" Issuer="https://auth.bas.psc.esante.gouv.fr/auth/realms/esante-wallet"
+                 ConfigurationEndpoint="https://auth.bas.psc.esante.gouv.fr/auth/realms/esante-wallet/.well-known/wallet-openid-configuration">
+      <Scope Name="scope_all" Default="true" Required="true" />
+    </Environment>
+
+    <Setting PropertyName="AuthenticationLevel" ParameterName="level" Type="String" Required="true" DefaultValue="eidas1"
+             Description="The level of authentication requested, sent as part of the 'acr_values' parameter (by default, 'eidas1')" />
+
+    <Setting PropertyName="ClientCertificate" ParameterName="certificate" Type="Certificate" Required="false"
+             Description="The TLS client certificate that will be used with the backchannel endpoints (while not enforced yet, its use is strongly recommended)" />
+  </Provider>
+
+  <!--
+                                            ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                            ██ ▄▄▀██ ▄▄▄██ ▄▄▀██ ▄▄▀█▄ ▄█▄▄ ▄▄██
+                                            ██ ▀▀▄██ ▄▄▄██ ██ ██ ██ ██ ████ ████
+                                            ██ ██ ██ ▀▀▀██ ▀▀ ██ ▀▀ █▀ ▀███ ████
+                                            ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Reddit" Documentation="https://github.com/reddit-archive/reddit/wiki/OAuth2">
+    <Environment Issuer="https://www.reddit.com/">
+      <Configuration AuthorizationEndpoint="https://www.reddit.com/api/v1/authorize"
+                     TokenEndpoint="https://www.reddit.com/api/v1/access_token"
+                     UserinfoEndpoint="https://oauth.reddit.com/api/v1/me">
+        <GrantType Value="authorization_code" />
+        <GrantType Value="client_credentials" />
+        <GrantType Value="refresh_token" />
+
+        <TokenEndpointAuthMethod Value="client_secret_basic" />
+      </Configuration>
+
+      <!--
+        Note: Reddit requires sending at least one scope element. If no scope parameter
+        is set, a misleading "invalid client identifier" error is returned to the caller.
+        To prevent that, the "identity" scope (that is required by the userinfo endpoint)
+        is always added even if another scope was explicitly registered by the user.
+      -->
+
+      <Scope Name="identity" Default="true" Required="true" />
+    </Environment>
+
+    <Setting PropertyName="Duration" ParameterName="duration" Type="String" Required="false"
+             Description="The value used as the 'duration' parameter (can be set to 'permanent' to retrieve a refresh token)" />
+  </Provider>
+
+  <!--
+                      ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                      ██ ▄▄▄ █▄▄ ▄▄█ ▄▄▀██ ▄▄▀██ █▀▄████ ▄▄▄█▄▀█▀▄██ ▄▄▀██ ██ █ ▄▄▀██ ▀██ ██ ▄▄ ██ ▄▄▄██
+                      ██▄▄▄▀▀███ ███ ▀▀ ██ █████ ▄▀█████ ▄▄▄███ ████ █████ ▄▄ █ ▀▀ ██ █ █ ██ █▀▀██ ▄▄▄██
+                      ██ ▀▀▀ ███ ███ ██ ██ ▀▀▄██ ██ ████ ▀▀▀█▀▄█▄▀██ ▀▀▄██ ██ █ ██ ██ ██▄ ██ ▀▀▄██ ▀▀▀██
+                      ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="StackExchange" DisplayName="Stack Exchange"
+            Documentation="https://api.stackexchange.com/docs/authentication">
+    <Environment Issuer="https://api.stackexchange.com/">
+      <Configuration AuthorizationEndpoint="https://stackoverflow.com/oauth"
+                     TokenEndpoint="https://stackoverflow.com/oauth/access_token/json"
+                     UserinfoEndpoint="https://api.stackexchange.com/2.3/me" />
+    </Environment>
+
+    <Setting PropertyName="ApplicationKey" ParameterName="key" Type="String" Required="true"
+             Description="The application key used to communicate with the StackExchange API" />
+
+    <Setting PropertyName="Site" ParameterName="site" Type="String" Required="true" DefaultValue="stackoverflow"
+             Description="The site specified in userinfo requests (by default, 'stackoverflow')" />
+  </Provider>
+
+  <!--
+                                              ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                              █▄▄ ▄▄██ ▄▄▀█ ▄▄▀██ █▀▄█▄▄ ▄▄██
+                                              ███ ████ ▀▀▄█ ▀▀ ██ ▄▀████ ████
+                                              ███ ████ ██ █ ██ ██ ██ ███ ████
+                                              ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Trakt" Documentation="https://trakt.docs.apiary.io/#reference/authentication-oauth">
+    <Environment Issuer="https://trakt.tv/">
+      <Configuration AuthorizationEndpoint="https://trakt.tv/oauth/authorize"
+                     TokenEndpoint="https://api.trakt.tv/oauth/token"
+                     UserinfoEndpoint="https://api.trakt.tv/users/me">
+        <GrantType Value="authorization_code" />
+        <GrantType Value="refresh_token" />
+      </Configuration>
+    </Environment>
+  </Provider>
+
+  <!--
+                                        ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                        █▄▄ ▄▄██ ███ █▄ ▄█▄▄ ▄▄█▄▄ ▄▄██ ▄▄▄██ ▄▄▀██
+                                        ███ ████ █ █ ██ ████ █████ ████ ▄▄▄██ ▀▀▄██
+                                        ███ ████▄▀▄▀▄█▀ ▀███ █████ ████ ▀▀▀██ ██ ██
+                                        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Twitter" Documentation="https://developer.twitter.com/en/docs/authentication/oauth-2-0/authorization-code">
+    <Environment Issuer="https://twitter.com/">
+      <Configuration AuthorizationEndpoint="https://twitter.com/i/oauth2/authorize"
+                     TokenEndpoint="https://api.twitter.com/2/oauth2/token"
+                     UserinfoEndpoint="https://api.twitter.com/2/users/me">
+        <CodeChallengeMethod Value="S256" />
+
+        <GrantType Value="authorization_code" />
+        <GrantType Value="refresh_token" />
+
+        <TokenEndpointAuthMethod Value="client_secret_basic" />
+      </Configuration>
+
+      <!--
+        Note: Twitter requires requesting the "tweet.read" and "users.read" scopes for the
+        userinfo endpoint to work correctly. As such, these 2 scopes are marked as required
+        so they are always sent even if they were not explicitly added by the user.
+      -->
+
+      <Scope Name="tweet.read" Default="true" Required="true" />
+      <Scope Name="users.read" Default="true" Required="true" />
+    </Environment>
+
+    <Setting PropertyName="Expansions" ParameterName="expansions" Collection="true" Type="String"
+             Description="The list of data objects to expand from the userinfo endpoint (by default, all known expansions are requested)">
+      <Item Value="pinned_tweet_id" Default="true" Required="false" />
+    </Setting>
+
+    <Setting PropertyName="TweetFields" ParameterName="fields" Collection="true" Type="String"
+             Description="The tweet fields that should be retrieved from the userinfo endpoint (by default, all known tweet fields are requested)">
+      <Item Value="attachments"         Default="true" Required="false" />
+      <Item Value="author_id"           Default="true" Required="false" />
+      <Item Value="context_annotations" Default="true" Required="false" />
+      <Item Value="conversation_id"     Default="true" Required="false" />
+      <Item Value="created_at"          Default="true" Required="false" />
+      <Item Value="entities"            Default="true" Required="false" />
+      <Item Value="geo"                 Default="true" Required="false" />
+      <Item Value="id"                  Default="true" Required="false" />
+      <Item Value="in_reply_to_user_id" Default="true" Required="false" />
+      <Item Value="lang"                Default="true" Required="false" />
+      <Item Value="non_public_metrics"  Default="true" Required="false" />
+      <Item Value="public_metrics"      Default="true" Required="false" />
+      <Item Value="organic_metrics"     Default="true" Required="false" />
+      <Item Value="promoted_metrics"    Default="true" Required="false" />
+      <Item Value="possibly_sensitive"  Default="true" Required="false" />
+      <Item Value="referenced_tweets"   Default="true" Required="false" />
+      <Item Value="reply_settings"      Default="true" Required="false" />
+      <Item Value="source"              Default="true" Required="false" />
+      <Item Value="text"                Default="true" Required="false" />
+      <Item Value="withheld"            Default="true" Required="false" />
+    </Setting>
+
+    <Setting PropertyName="UserFields" ParameterName="fields" Collection="true" Type="String"
+             Description="The user fields that should be retrieved from the userinfo endpoint (by default, all known user fields are requested)">
+      <Item Value="created_at"      Default="true" Required="false" />
+      <Item Value="description"     Default="true" Required="false" />
+      <Item Value="entities"        Default="true" Required="false" />
+      <Item Value="id"              Default="true" Required="false" />
+      <Item Value="location"        Default="true" Required="false" />
+      <Item Value="name"            Default="true" Required="false" />
+      <Item Value="pinned_tweet_id" Default="true" Required="false" />
+      <Item Value="protected"       Default="true" Required="false" />
+      <Item Value="public_metrics"  Default="true" Required="false" />
+      <Item Value="url"             Default="true" Required="false" />
+      <Item Value="username"        Default="true" Required="false" />
+      <Item Value="verified"        Default="true" Required="false" />
+      <Item Value="withheld"        Default="true" Required="false" />
+    </Setting>
+  </Provider>
+
+  <!--
+                                ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                ██ ███ ██ ▄▄▄ ██ ▄▄▀██ ▄▄▀██ ▄▄ ██ ▄▄▀██ ▄▄▄██ ▄▄▄ ██ ▄▄▄ ██
+                                ██ █ █ ██ ███ ██ ▀▀▄██ ██ ██ ▀▀ ██ ▀▀▄██ ▄▄▄██▄▄▄▀▀██▄▄▄▀▀██
+                                ██▄▀▄▀▄██ ▀▀▀ ██ ██ ██ ▀▀ ██ █████ ██ ██ ▀▀▀██ ▀▀▀ ██ ▀▀▀ ██
+                                ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="WordPress" Documentation="https://developer.wordpress.com/docs/oauth2/">
+    <Environment Issuer="https://wordpress.com/">
+      <Configuration AuthorizationEndpoint="https://public-api.wordpress.com/oauth2/authorize"
+                     TokenEndpoint="https://public-api.wordpress.com/oauth2/token"
+                     UserinfoEndpoint="https://public-api.wordpress.com/rest/v1/me" />
+      <!--
+        Note: by default, if no specific scope is requested, an unlimited access is granted by
+        WordPress. To avoid that, the special "auth" scope (that shouldn't be used with any
+        of the other scopes) can be used to only grant access to the userinfo endpoint.
+      -->
+
+      <Scope Name="auth" Default="true" Required="false" />
+    </Environment>
+  </Provider>
+
+  <!--
+                                            ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+                                            ██ ███ █ ▄▄▀██ ██ ██ ▄▄▄ ██ ▄▄▄ ██
+                                            ██▄▀▀▀▄█ ▀▀ ██ ▄▄ ██ ███ ██ ███ ██
+                                            ████ ███ ██ ██ ██ ██ ▀▀▀ ██ ▀▀▀ ██
+                                            ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+  -->
+
+  <Provider Name="Yahoo" Documentation="https://developer.yahoo.com/oauth2/guide/openid_connect/">
+    <Environment Issuer="https://api.login.yahoo.com/" />
+  </Provider>
+
+</Providers>
