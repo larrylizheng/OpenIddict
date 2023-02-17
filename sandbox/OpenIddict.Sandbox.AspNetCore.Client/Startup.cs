@@ -101,15 +101,18 @@ public class Startup
                 {
                     //Issuer = new Uri("https://oidc-test-ly.auth.ap-southeast-2.amazoncognito.com/", UriKind.Absolute),
 
-                    Issuer = new Uri("https://oidc-test-ly.auth.ap-southeast-2.amazoncognito.com/", UriKind.Absolute),
-                    ProviderName = "cognito-idp.us-east-1.amazonaws.com/ap-southeast-2_Syqjstc2f",
+                    Issuer = new Uri("https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_Syqjstc2f", UriKind.Absolute),
+                    //ProviderName = "cognito-idp.us-east-1.amazonaws.com/ap-southeast-2_Syqjstc2f",
+                    //ProviderName = "mockidp.com.au",
+                    //ProviderName = "mockserver",
+                    ProviderName = "mockidp",
 
-                    ClientId = "60j21dgkauefs41eudjpfigco7",
-                    ClientSecret = "169rgmhb2ljnl0m11u8mtbfbkntbs8nhl2o91d78ts2015jaaf88",
+                    ClientId = "1cllqsn93nppshpeeesfqm7otc",
+                    ClientSecret = "152n88mb48gnqnc48d47m0568s1a3jql913mu89sui5sv6ruer0r",
                     //Scopes = { Scopes.Email, Scopes.Profile, Scopes.OfflineAccess, "demo_api" },
-                    Scopes = { Scopes.Email, Scopes.Profile },
-                    RedirectUri = new Uri("callback/login/local", UriKind.Relative),
-                    PostLogoutRedirectUri = new Uri("callback/logout/local", UriKind.Relative)
+                    Scopes = { Scopes.OpenId},
+                    RedirectUri = new Uri("callback/login/mockidp", UriKind.Relative),
+                    PostLogoutRedirectUri = new Uri("callback/logout/mockidp", UriKind.Relative)
                 });
 
                 // Register the Web providers integrations.

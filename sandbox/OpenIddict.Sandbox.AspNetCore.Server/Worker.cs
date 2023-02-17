@@ -95,7 +95,47 @@ public class Worker : IHostedService
                         Permissions.Scopes.Email,
                         Permissions.Scopes.Profile,
                         Permissions.Scopes.Roles,
-                        Permissions.Scopes.OpenId,
+                        Permissions.Prefixes.Scope + "demo_api"
+                    }
+                    //Requirements =
+                    //{
+                    //    Requirements.Features.ProofKeyForCodeExchange
+                    //}
+                });
+            }
+
+            if (await manager.FindByClientIdAsync("mockidp") is null)
+            {
+                await manager.CreateAsync(new OpenIddictApplicationDescriptor
+                {
+                    ClientId = "mockidp",
+                    ClientSecret = "901564A5-E7FE-42CB-B10D-61EF6A8F3654",
+                    ConsentType = ConsentTypes.Explicit,
+                    DisplayName = "mock idp application",
+                    DisplayNames =
+                    {
+                        [CultureInfo.GetCultureInfo("fr-FR")] = "mock idp application"
+                    },
+                    RedirectUris =
+                    {
+                        new Uri("https://oidc-test-ly.auth.ap-southeast-2.amazoncognito.com/oauth2/idpresponse"),
+                        new Uri("https://localhost:44381/callback/login/mockidp")
+                    },
+                    PostLogoutRedirectUris =
+                    {
+                        new Uri("https://localhost:44381/callback/logout/mockidp")
+                    },
+                    Permissions =
+                    {
+                        Permissions.Endpoints.Authorization,
+                        Permissions.Endpoints.Logout,
+                        Permissions.Endpoints.Token,
+                        Permissions.GrantTypes.AuthorizationCode,
+                        Permissions.GrantTypes.RefreshToken,
+                        Permissions.ResponseTypes.Code,
+                        Permissions.Scopes.Email,
+                        Permissions.Scopes.Profile,
+                        Permissions.Scopes.Roles,
                         Permissions.Prefixes.Scope + "demo_api"
                     },
                     Requirements =

@@ -46,7 +46,7 @@
         <form asp-action="Login" asp-controller="Authentication" method="post">
             <input type="hidden" name="returnUrl" value="@(Context.Request.PathBase + Context.Request.Path + Context.Request.QueryString)" />
 
-            <button class="btn btn-lg btn-success" type="submit" name="provider" value="Local">
+            <button class="btn btn-lg btn-success" type="submit" name="provider" value="mockidp">
                 Sign in using the local OIDC server
             </button>
 

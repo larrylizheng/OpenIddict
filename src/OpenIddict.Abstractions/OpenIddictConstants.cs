@@ -404,7 +404,6 @@ public static class OpenIddictConstants
             public const string Phone = "scp:phone";
             public const string Profile = "scp:profile";
             public const string Roles = "scp:roles";
-            public const string OpenId = "scp:openid";
         }
     }
 
